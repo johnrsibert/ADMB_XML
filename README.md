@@ -19,12 +19,28 @@ Advantages of using xml:
 
 4. Xml trees can be extended to accomodate whatever is needed (the 'x' in xml).
 
+5. Comments are easily added to xml files; e.g.  `<!-- this is a s comment -->`.
+
+6. The format of xml files is very relaxed; spaces and extra lines can be inserted.
+
+7. R and other computing packages support xml.
+
+
 
 Disadvantages of using xml:
 
 1. Xml files can be tedious to edit, but is unusual to need to edit a large object such as an array.
  
 2. Creating an initial xml file can be problematical (but see example tpl).
+
+
+Requirements
+------------
+
+ADMB_XML is requires using the [libxml2](http://www.xmlsoft.org/ "libxml2") library which is available for many computing platforms including Linux, Windows, CygWin, MacOS, MacOS X, and others.
+
+It has been tested on Ubuntu 12.02 64bit using g++ 4.8.0.
+
 
 
 pella-xml.tpl
