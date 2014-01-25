@@ -3,8 +3,9 @@
     \author John Sibert
 */
 #include "ADMB_XMLDoc.h"
+#include "admodel.h"
 #include <stdexcept>
-//#include "trace.h"
+#include "trace.h"
 //#include <gdbprintlib.h>
 
 using namespace std;
@@ -66,8 +67,9 @@ ADMB_XMLDoc::~ADMB_XMLDoc()
     xmlCleanupParser();
 } 
  
-/* * Write the contents of doc to a file.
- * @param parfile character string containing filename to write the xml tree.
+/** Write the contents of doc to a file.
+   @param parfile character string containing filename to write the xml tree.
+   \return Number of bytes written
  */
 int ADMB_XMLDoc::write(void)
 {
@@ -136,7 +138,6 @@ int ADMB_XMLDoc::createXMLelement(const data_matrix& _t, const adstring& title)
    const int j2 = t.rowmax();
    createIndexNode(node,j1,j2,i1,i2);
    createValueNode(node,t);
- 
    xmlNodePtr nnode = xmlAddChild(RootNode,node);
    return ((nnode == NULL));
 } 
@@ -147,18 +148,10 @@ int ADMB_XMLDoc::createXMLelement(const param_init_bounded_number& _t, const ads
    adstring name(t.get_name());
    xmlNodePtr node = createNameNode(name, ADMB_XMLDoc::paramS);
    createTitleNode(node,title);
-   
    createValueNode(node,value(t));
-
-   //file << createBoundsTag(t.get_minb(),t.get_maxb());
    createBoundsNode(node,t.get_minb(),t.get_maxb());
-
-   //file << createActiveTag(active(t));
    createActiveNode(node, active(t));
-
-   //file << createPhaseTag(t.phase_start);
    createPhaseNode(node,t.phase_start);
-
    xmlNodePtr nnode = xmlAddChild(RootNode,node);
    return ((nnode == NULL));
 }
@@ -651,7 +644,7 @@ int ADMB_XMLDoc::read(const char* parfile)
       ad_exit(1);
    }
 
-   return 1;
+   return 0;
 }
 
 
@@ -854,6 +847,30 @@ double ADMB_XMLDoc::getMaxNumberMatrixBounds(const string& name) const
 }
 */
 
+double ADMB_XMLDoc::getMinb(const string& name) const
+{
+   string xpath = "/"+DocRootName + "/" + name + "/bounds/"; 
+   string s = getContentString(xpath+"min");
+   double d = strtod(s.c_str(),0);
+   return(d);
+}
+
+double ADMB_XMLDoc::getMaxb(const string& name) const
+{
+   string xpath = "/"+DocRootName + "/" + name + "/bounds/"; 
+   string s = getContentString(xpath+"max");
+   double d = strtod(s.c_str(),0);
+   return(d);
+}
+
+//   int getPhase(const string& name) const;
+int ADMB_XMLDoc::getPhase(const string& name) const
+{
+   string s = getContentString(name,"phase");
+   int d = atoi(s.c_str());
+   return(d);
+}
+ 
 
 /*
     <index>

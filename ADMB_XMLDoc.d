@@ -11,8 +11,7 @@ ADMB_XMLDoc.o: ADMB_XMLDoc.cpp ADMB_XMLDoc.h \
  /usr/include/x86_64-linux-gnu/bits/inf.h \
  /usr/include/x86_64-linux-gnu/bits/nan.h \
  /usr/include/x86_64-linux-gnu/bits/mathdef.h \
- /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
- /usr/include/x86_64-linux-gnu/bits/mathinline.h /usr/include/unistd.h \
+ /usr/include/x86_64-linux-gnu/bits/mathcalls.h /usr/include/unistd.h \
  /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
  /usr/include/x86_64-linux-gnu/bits/environments.h \
  /usr/include/x86_64-linux-gnu/bits/types.h \
@@ -106,7 +105,6 @@ ADMB_XMLDoc.o: ADMB_XMLDoc.cpp ADMB_XMLDoc.h \
  /usr/local/gcc-4.8.0/include/c++/4.8.0/cstdio /usr/include/libio.h \
  /usr/include/_G_config.h /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/sys_errlist.h \
- /usr/include/x86_64-linux-gnu/bits/stdio.h \
  /usr/local/gcc-4.8.0/include/c++/4.8.0/x86_64-unknown-linux-gnu/bits/basic_file.h \
  /usr/local/gcc-4.8.0/include/c++/4.8.0/x86_64-unknown-linux-gnu/bits/c++io.h \
  /usr/local/gcc-4.8.0/include/c++/4.8.0/bits/fstream.tcc \
@@ -121,10 +119,6 @@ ADMB_XMLDoc.o: ADMB_XMLDoc.cpp ADMB_XMLDoc.h \
  /home/jsibert/admb/trunk/build/dist/include/adstring.hpp \
  /home/jsibert/admb/trunk/build/dist/include/clist.h \
  /usr/include/string.h /usr/include/x86_64-linux-gnu/sys/time.h \
- /home/jsibert/admb/trunk/build/dist/include/admodel.h \
- /home/jsibert/admb/trunk/build/dist/include/cifstrem.h \
- /home/jsibert/admb/trunk/build/dist/include/param_init_bounded_number_matrix.h \
- /home/jsibert/admb/trunk/build/dist/include/admodel.h \
  /usr/include/libxml2/libxml/tree.h \
  /usr/include/libxml2/libxml/xmlversion.h \
  /usr/include/libxml2/libxml/xmlexports.h \
@@ -144,8 +138,11 @@ ADMB_XMLDoc.o: ADMB_XMLDoc.cpp ADMB_XMLDoc.h \
  /usr/include/libxml2/libxml/xmlIO.h /usr/include/libxml2/libxml/SAX.h \
  /usr/include/libxml2/libxml/xlink.h /usr/include/libxml2/libxml/SAX2.h \
  /usr/include/libxml2/libxml/xpath.h \
- /usr/include/libxml2/libxml/xpathInternals.h \
- /usr/local/gcc-4.8.0/include/c++/4.8.0/stdexcept
+ /usr/include/libxml2/libxml/xpathInternals.h admodel.h \
+ /home/jsibert/admb/trunk/build/dist/include/cifstrem.h \
+ /home/jsibert/admb/trunk/build/dist/include/param_init_bounded_number_matrix.h \
+ /home/jsibert/admb/trunk/build/dist/include/admodel.h \
+ /usr/local/gcc-4.8.0/include/c++/4.8.0/stdexcept trace.h
 
 ADMB_XMLDoc.h:
 
@@ -178,8 +175,6 @@ ADMB_XMLDoc.h:
 /usr/include/x86_64-linux-gnu/bits/mathdef.h:
 
 /usr/include/x86_64-linux-gnu/bits/mathcalls.h:
-
-/usr/include/x86_64-linux-gnu/bits/mathinline.h:
 
 /usr/include/unistd.h:
 
@@ -393,8 +388,6 @@ ADMB_XMLDoc.h:
 
 /usr/include/x86_64-linux-gnu/bits/sys_errlist.h:
 
-/usr/include/x86_64-linux-gnu/bits/stdio.h:
-
 /usr/local/gcc-4.8.0/include/c++/4.8.0/x86_64-unknown-linux-gnu/bits/basic_file.h:
 
 /usr/local/gcc-4.8.0/include/c++/4.8.0/x86_64-unknown-linux-gnu/bits/c++io.h:
@@ -428,14 +421,6 @@ ADMB_XMLDoc.h:
 /usr/include/string.h:
 
 /usr/include/x86_64-linux-gnu/sys/time.h:
-
-/home/jsibert/admb/trunk/build/dist/include/admodel.h:
-
-/home/jsibert/admb/trunk/build/dist/include/cifstrem.h:
-
-/home/jsibert/admb/trunk/build/dist/include/param_init_bounded_number_matrix.h:
-
-/home/jsibert/admb/trunk/build/dist/include/admodel.h:
 
 /usr/include/libxml2/libxml/tree.h:
 
@@ -485,4 +470,14 @@ ADMB_XMLDoc.h:
 
 /usr/include/libxml2/libxml/xpathInternals.h:
 
+admodel.h:
+
+/home/jsibert/admb/trunk/build/dist/include/cifstrem.h:
+
+/home/jsibert/admb/trunk/build/dist/include/param_init_bounded_number_matrix.h:
+
+/home/jsibert/admb/trunk/build/dist/include/admodel.h:
+
 /usr/local/gcc-4.8.0/include/c++/4.8.0/stdexcept:
+
+trace.h:

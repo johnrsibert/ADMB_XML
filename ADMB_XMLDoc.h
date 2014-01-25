@@ -9,7 +9,6 @@ Definition of class ADMB_XMLDoc. Based on the XMLDocument2 class by Johnoel Anch
 #define __ADMB_XMLDoc__
 
 #include <fvar.hpp>
-#include <admodel.h>
 
 #include <libxml/tree.h>
 #include <libxml/parser.h>
@@ -17,6 +16,16 @@ Definition of class ADMB_XMLDoc. Based on the XMLDocument2 class by Johnoel Anch
 #include <libxml/xpathInternals.h>
 
 using namespace std;
+
+// forward declarations to avoid circular includes caused by
+// #include <admodel.h>
+class data_number;
+class data_vector;
+class data_matrix;
+class param_init_bounded_number;
+class param_init_bounded_vector;
+class initial_params;
+class objective_function_value;
 
 //LIBXML_TEST_VERSION;
 /** Class for handling ADMB data types in XML. 
@@ -54,6 +63,7 @@ public:
   \param filen Name of the xml file produced.
   */
    void allocate(const adstring& drn, const adstring& prg, const adstring& id, const adstring file);
+   void allocate(const char* s);
   ~ADMB_XMLDoc(); 
    ADMB_XMLDoc(const ADMB_XMLDoc& t); ///< Undefined copy construcor
 
@@ -100,13 +110,14 @@ public:
    */ 
    int createXMLelement(const initial_params& t);
 
-
-
    double getDouble(const string& name) const;
    int getInt(const string& name) const;
    adstring getString(const string& name) const;
    adstring_array getADStringArray(const string& name, const int lb, const int ub) const;
    void getADStringArray(const string& name, adstring_array* p) const;
+   double getMinb(const string& name) const;
+   double getMaxb(const string& name) const;
+   int getPhase(const string& name) const;
    ivector getIvector(const string& name) const;
    ivector getIvector(const string& name, const int lb, const int ub) const; 
    dvector getDvector(const string& name) const;
@@ -119,7 +130,7 @@ public:
    bool set(const string& name, const double value);
    bool set(const string& name, const dvector& value);
    bool set(const string& name, const dmatrix& value);
-
+   
    int read(const char* parfile);// throw (runtime_error);
    int write(const char* parfile);
 
