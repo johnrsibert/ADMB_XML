@@ -41,11 +41,11 @@ Requirements
 
 ADMB_XML uses the [libxml2](http://www.xmlsoft.org/ "libxml2") library which is available for many computing platforms including Linux, Windows, CygWin, MacOS, MacOS X, and others.
 
-It has been tested on Ubuntu 12.02 64bit using g++ 4.8.0.
+It has been tested on Ubuntu 12.04 64bit using g++ 4.8.0.
 
 
 
-pella-xml.tpl
+pella-xml.tpl example
 -------------
 
 This example tpl is Arni Magnusson's [Pella](http://www.admb-project.org/examples/fisheries/pella/ "Pella") example with the alb data. One FUNCTION has been added to write data and parameters into an xml tree.
@@ -82,7 +82,7 @@ This function is called twice: once at the end of PRELIMINARY_CALCS section to r
 
 The two output files `pella-xml.x00` and `pella-xml.x01` can be viewed either with a text editor or with a bowser (Firefox works fine) using the supplied xml stylesheet `ADMB.xsl`.
 
-xpella.tpl
+xpella.tpl example
 -------------
 
 This example tpl is another adaptation Arni Magnusson's [Pella](http://www.admb-project.org/examples/fisheries/pella/ "Pella") example with the alb data. All init_ variables are declared using the xml document tree read in from the file xpella.xml. Portions of the delcarations from the DATA_SECTION and PARAMETER_SECTION are shown below:
@@ -117,4 +117,6 @@ The saveXMLFile from pella-xml.tpl is used to write data and parameters into an 
 Next Steps
 ----------
 
-The machinery required to create ADMB objects from xml nodes needs to be written. Recent insights from Dave Fournier and Arni Magunsson offer some directions. The lex code needs to be modified and allocate(ADMB_XMLDoc& node) need to be written.
+1. The recent insights from Dave Fournier, Arni Magunsson and Steve Martell have been invaluable for modifying the lex code and writing allocate(ADMB_XMLDoc& node) functions. Allocate functions need to be written for more ADMB types. 
+2. Interested users should test this stuff and proved feedback on what is useful, what is not so useful, and what should be added.
+ 
