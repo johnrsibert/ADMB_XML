@@ -25,6 +25,8 @@ Advantages of using xml:
 
 7. R and other computing packages support xml.
 
+8. Could be used as a basis for maintaining a data base of alternate fits for model selection.
+
 
 
 Disadvantages of using xml:
@@ -37,7 +39,7 @@ Disadvantages of using xml:
 Requirements
 ------------
 
-ADMB_XML is requires using the [libxml2](http://www.xmlsoft.org/ "libxml2") library which is available for many computing platforms including Linux, Windows, CygWin, MacOS, MacOS X, and others.
+ADMB_XML uses the [libxml2](http://www.xmlsoft.org/ "libxml2") library which is available for many computing platforms including Linux, Windows, CygWin, MacOS, MacOS X, and others.
 
 It has been tested on Ubuntu 12.02 64bit using g++ 4.8.0.
 
@@ -79,6 +81,38 @@ This function is called twice: once at the end of PRELIMINARY_CALCS section to r
 
 
 The two output files `pella-xml.x00` and `pella-xml.x01` can be viewed either with a text editor or with a bowser (Firefox works fine) using the supplied xml stylesheet `ADMB.xsl`.
+
+xpella.tpl
+-------------
+
+This example tpl is another adaptation Arni Magnusson's [Pella](http://www.admb-project.org/examples/fisheries/pella/ "Pella") example with the alb data. All init_ variables are declared using the xml document tree read in from the file xpella.xml. Portions of the delcarations from the DATA_SECTION and PARAMETER_SECTION are shown below:
+
+
+    DATA_SECTION
+      // Read data xml file
+      init_xml_doc xml
+      init_int nc(xml)
+      init_matrix Cdata(xml)
+      init_int ni(xml)
+      init_matrix Idata(xml)
+      .
+      .
+      .
+    
+    PARAMETER_SECTION
+      // Estimated
+      init_bounded_number logr(xml)
+      init_bounded_number logk(xml)
+      init_bounded_number loga(xml)
+      init_bounded_number logp(xml)
+      init_bounded_number logq(xml)
+      init_bounded_number logsigma(xml)
+      .
+      .
+      .
+
+The saveXMLFile from pella-xml.tpl is used to write data and parameters into an xml tree.
+
 
 Next Steps
 ----------
