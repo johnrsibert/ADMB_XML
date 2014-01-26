@@ -1,3 +1,4 @@
+# extensivly hacked version of
 # A Generic Makefile for ADMB programs that also includes additonal libraries.
 # Developed for Mac OSx using the clang++ compiler
 # Author: Steve Martell & John Sibert
@@ -8,11 +9,11 @@
 # 4. To make executables with ADMB "safe" library type: make   #
 # 5. Optimized executables type: make OPT=TRUE                 #
 # ———————————————————————————————————————————————————————————— #
-EXEC = pella-xml
-SRCS = $(EXEC).cpp ADMB_XMLDoc.cpp 
-OBJS = $(SRCS:.cpp=.o)
-TPLS = $(EXEC).tpl
-DEPS = $(SRCS:.cpp=.depends)
+#TARGETS = xpella pella-xml
+#SRCS = $(TARGETS).cpp ADMB_XMLDoc.cpp 
+#OBJS = $(SRCS:.cpp=.o)
+#TPLS = $(TARGETS).tpl
+#DEPS = $(SRCS:.cpp=.depends)
 
 # Export the path to your ADMB dist directory
 export ADMB_HOME=/home/jsibert/admb/trunk/build/dist
@@ -30,7 +31,7 @@ RM=rm -fv
 .SUFFIXES: .tpl .cpp .o .obj
 
 # tell make not to delete these intermediate targets
-.PRECIOUS: %.cpp %.o %.obj
+.PRECIOUS: %.c %.cpp %.o %.obj
 
 # make some special PHONY targets
 .PHONY: all help rules clean
@@ -43,8 +44,8 @@ ifeq ($(OPT),TRUE)
   LDFLAGS = -O3 
   LDLIBS  = $(ADMB_HOME)/lib/libadmbo.a $(ADMB_HOME)/contrib/lib/libcontribo.a -lxml2
 else
-  CC_OPT = -O3 -DSAFE_ALL -ggdb
-  LDFLAGS = -O3 -g
+  CC_OPT = -O0 -DSAFE_ALL -ggdb
+  LDFLAGS = -O0 -ggdb
   LDLIBS  = $(ADMB_HOME)/lib/libadmb.a $(ADMB_HOME)/contrib/lib/libcontrib.a -lxml2
 endif
 
@@ -53,11 +54,14 @@ CXXFLAGS = $(CC_OPT) -D__GNUDOS__ -Dlinux -DUSE_LAPLACE  -I. -I$(ADMB_HOME)/incl
 
 
 # this is the default target
-all: $(EXEC)
+all: pella-xml xpella
 
 # link the object file into the executable 
-$(EXEC): $(OBJS)
-	$(LD) $(LDFLAGS) -o  $@ $(OBJS) $(LDLIBS)
+pella-xml: pella-xml.o ADMB_XMLDoc.o
+	$(LD) $(LDFLAGS) -o  $@ $^ $(LDLIBS)
+
+xpella: xpella.o ADMB_XMLDoc.o admodel.o model_xml.o
+	$(LD) $(LDFLAGS) -o  $@ $^ $(LDLIBS)
 
 
 # Advanced Auto Dependency Generation
@@ -68,24 +72,48 @@ $(EXEC): $(OBJS)
 -include $(OBJS:%.o=%.d)
 
 # Build the cpp file from the tpl
-$(EXEC).cpp: $(TPLS)
-	$(ADMB_HOME)/bin/tpl2cpp $(TPLS:.tpl=)
+%.cpp : %.tpl
+	./tpl2cpp $*
+
+#From ~/admb/trunk/src$ vi Makefile 
+#
+#lexfiles: lexdestdir $(DESTDIR)\bin\tpl2cpp.exe $(DESTDIR)\bin\tpl2rem.exe
+#
+#$(DESTDIR)\bin\tpl2cpp.exe: $(LEXDESTDIR)\tpl2cpp.c
+#	$(CC) /nologo /TC /Fo$(LEXDESTDIR)\ /Fe$@ $(LEXDESTDIR)\tpl2cpp.c
+#
+#$(LEXDESTDIR)\tpl2cpp.c: nh99\tpl2cpp.lex
+#	..\utilities\flex -o$(LEXDESTDIR)\lex.yy.c nh99\tpl2cpp.lex
+#	..\utilities\sed -f nh99\sedflex $(LEXDESTDIR)\lex.yy.c > $@
+#
+#$(DESTDIR)\bin\tpl2rem.exe: $(LEXDESTDIR)\tpl2rem.c
+#	$(CC) /nologo /TC /Fo$(LEXDESTDIR)\ /Fe$@ $(LEXDESTDIR)\tpl2rem.c
+#
+#$(LEXDESTDIR)\tpl2rem.c: df1b2-separable\tpl2rem.lex
+#	..\utilities\flex -o$(LEXDESTDIR)\lex.yy.c df1b2-separable\tpl2rem.lex
+#	..\utilities\sed -f df1b2-separable\sedflex $(LEXDESTDIR)\lex.yy.c > $@
+
+tpl2cpp: tpl2cpp.c
+	$(CC) tpl2cpp.c -ggdb -o tpl2cpp
+
+tpl2cpp.c: tpl2cpp.lex
+	flex -o lex.yy.c tpl2cpp.lex
+	sed -f sedflex lex.yy.c > $@
 
 
 
 clean: 
-	$(RM) $(OBJS) $(EXEC).htp $(EXEC).cpp
-	$(RM) $(EXEC).bar  $(EXEC).cor  $(EXEC).eva  $(EXEC).log  $(EXEC)-log.log  $(EXEC).par  $(EXEC).rep  $(EXEC).std
-	$(RM) admodel.*
-#$(RM) $(EXEC).x00  $(EXEC).x01
+	$(RM) tpl2cpp tpl2cpp.c lex.yy.c
+	$(RM) pella-xml pella-xml.htp pella-xml.cpp
+	$(RM) xpella xpella.htp xpella.cpp
+	$(RM) *.o
+	$(RM) *.bar *.cor *.eva *.log *.par *.rep *.std *.hes *.cov *.dep
+#$(RM) admodel.*
+#$(RM) *.x00  *.x01
 
 
 # generate some information about what your are doing
 rules:
-	@echo EXEC = $(EXEC)
-	@echo OBJS = $(OBJS)
-	@echo SRCS = $(SRCS)
-	@echo TPLS = $(TPLS)
 	@echo OPT = $(OPT)
 	@echo CC_OPT = $(CC_OPT)
 	@echo PWD = $(PWD)
