@@ -1,5 +1,6 @@
 // $Id: $
-/** \file ADMB_XMLDoc.cpp for class ADMB_XMLDoc. Based on the XMLDocument2 class by Johnoel Ancheta.
+/** \file ADMB_XMLDoc.cpp 
+Source code for class ADMB_XMLDoc. Based on the XMLDocument2 class by Johnoel Ancheta.
     \author John Sibert
 */
 #include "ADMB_XMLDoc.h"

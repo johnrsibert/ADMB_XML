@@ -1,3 +1,11 @@
+// $Id:  $
+/** \file model_xml.cpp
+Allocate(...) functions for ADMB types declared in DATA_SECTION and PARAMETER_SECTION
+of .tpl file.
+   Copyright&copy; 2014 ADMB Foundation
+   \author John Sibert
+*/
+
 #include "ADMB_XMLDoc.h"
 #include "admodel.h"
 #include "trace.h"

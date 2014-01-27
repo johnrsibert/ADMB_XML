@@ -34,7 +34,7 @@ RM=rm -fv
 .PRECIOUS: %.c %.cpp %.o %.obj
 
 # make some special PHONY targets
-.PHONY: all help rules clean
+.PHONY: all help rules clean dox
 
 # set up ADMB flags and appropriate libraries
 # make the "safe" version by default
@@ -54,7 +54,7 @@ CXXFLAGS = $(CC_OPT) -D__GNUDOS__ -Dlinux -DUSE_LAPLACE  -I. -I$(ADMB_HOME)/incl
 
 
 # this is the default target
-all: pella-xml xpella
+all: tpl2cpp pella-xml xpella dox
 
 # link the object file into the executable 
 pella-xml: pella-xml.o ADMB_XMLDoc.o
@@ -108,9 +108,10 @@ clean:
 	$(RM) xpella xpella.htp xpella.cpp
 	$(RM) *.o
 	$(RM) *.bar *.cor *.eva *.log *.par *.rep *.std *.hes *.cov *.dep
-#$(RM) admodel.*
-#$(RM) *.x00  *.x01
+	rm -rf dox
 
+dox:
+	doxygen
 
 # generate some information about what your are doing
 rules:
