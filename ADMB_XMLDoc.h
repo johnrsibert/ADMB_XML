@@ -26,6 +26,9 @@ class param_init_bounded_number;
 class param_init_bounded_vector;
 class initial_params;
 class objective_function_value;
+class named_dvariable;
+class named_dvar_vector;
+class named_dvar_matrix;
 
 //LIBXML_TEST_VERSION;
 /** Class for handling ADMB data types in XML. 
@@ -91,8 +94,14 @@ public:
    int createXMLelement(const adstring& name, const data_vector& t, const adstring& title);
    int createXMLelement(const adstring& name, const data_matrix& t, const adstring& title);
 
+   // -----------------------
+
    int createXMLelement(const data_int& t, const adstring& title);
    int createXMLelement(const data_matrix& t, const adstring& title);
+
+   int createXMLelement(const named_dvariable& t, const adstring& title);
+   int createXMLelement(const named_dvar_vector& t, const adstring& title);
+   int createXMLelement(const named_dvar_matrix& t, const adstring& title);
 
    int createXMLelement(const param_init_bounded_number& t, const adstring& title);
    int createXMLelement(const param_init_bounded_vector& t, const adstring& title);

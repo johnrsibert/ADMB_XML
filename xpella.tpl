@@ -141,6 +141,23 @@ FUNCTION saveXMLFile
   ret = oxml.createXMLelement(logq,"log q");
   ret = oxml.createXMLelement(logsigma,"log sigma");
 
+  if (fabs(neglogL) > 0.0)
+  {
+     ret = oxml.createXMLcomment("Derived and updated variable objects.");
+     ret = oxml.createXMLelement(r,"Growth Rate");
+     ret = oxml.createXMLelement(k,"Carrying Capacity");
+     ret = oxml.createXMLelement(a,"Definition of a");
+     ret = oxml.createXMLelement(p,"Definition of p");
+     ret = oxml.createXMLelement(q,"Catchability");
+     ret = oxml.createXMLelement(sigma,"Standard Deviation");
+     ret = oxml.createXMLelement(B,"Biomass");
+     ret = oxml.createXMLelement(Bfit,"Biomass Fit");
+     ret = oxml.createXMLelement(Ifit,"Predicted Catch?");
+     ret = oxml.createXMLelement(RSS,"Residual Sum of Squares");
+     ret = oxml.createXMLelement(summary,"Year Biomass Catch Index IndexFit");
+
+  }
+
   int nbytes = oxml.write();
 
 FUNCTION get_fit

@@ -103,6 +103,51 @@ int ADMB_XMLDoc::createXMLelement(const adstring& name, const double t, const ad
    return ((nnode == NULL));
  }
 
+int ADMB_XMLDoc::createXMLelement(const named_dvariable& _t, const adstring& title)
+{
+   ADUNCONST(named_dvariable, t);
+   adstring name(t.get_name());
+
+   xmlNodePtr node = createNameNode(name, ADMB_XMLDoc::paramS);
+   createTitleNode(node,title);
+   createValueNode(node,value(t));
+   xmlNodePtr nnode = xmlAddChild(RootNode,node);
+   return ((nnode == NULL));
+}
+
+int ADMB_XMLDoc::createXMLelement(const named_dvar_vector& _t, const adstring& title)
+{
+   ADUNCONST(named_dvar_vector, t);
+   adstring name(t.get_name());
+   const int i1 = t.indexmin();
+   const int i2 = t.indexmax();
+
+   xmlNodePtr node = createNameNode(name, ADMB_XMLDoc::paramS);
+   createTitleNode(node,title);
+   createValueNode(node,value(t));
+   createIndexNode(node,i1,i2);
+
+   xmlNodePtr tnode = xmlAddChild(RootNode,node);
+   return ((tnode == NULL));
+}
+
+int ADMB_XMLDoc::createXMLelement(const named_dvar_matrix& _t, const adstring& title)
+{
+   ADUNCONST(named_dvar_matrix, t);
+   adstring name(t.get_name());
+   xmlNodePtr node = createNameNode(name, ADMB_XMLDoc::paramS);
+   createTitleNode(node,title);
+   const int i1 = t.colmin();
+   const int i2 = t.colmax();
+   const int j1 = t.rowmin();
+   const int j2 = t.rowmax();
+   createIndexNode(node,j1,j2,i1,i2);
+   createValueNode(node,value(t));
+   xmlNodePtr nnode = xmlAddChild(RootNode,node);
+   return ((nnode == NULL));
+} 
+
+
 
 int ADMB_XMLDoc::createXMLelement(const data_int& _t, const adstring& title)
 {
