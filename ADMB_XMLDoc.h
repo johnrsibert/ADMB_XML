@@ -74,12 +74,16 @@ public:
 
    adstring getFileName()const {return adstring(XMLFileName.c_str());};
  
+   /** @name XML Creation for AUTODIF and other types
+    *  @{
+    */
    /** Creates xml element for a variable.
-   \param name adstring containing the name of the variable used in the ADMB code.
-   \param t The variable for with the element is to be created. 
-            This functionion is overloaded for many data types.
-   \param title adstring containing au "user-friendly" description of the variable.
-   \deprecated The name argument is superflous for most variables defined the DATA_SECTION and PARAMETER_SECTION of a tpl file.
+   \param name adstring containing the name of the variable used in the ADMB code; 
+   must match the variable named in "t" parameter.
+   \param t The variable for with the element is to be 
+            created; overloaded for many data types.
+   \param title adstring containing a "user-friendly" description of the variable.
+   \return 1 if successful; 0 otherwise.
    */
    int createXMLelement(const adstring& name, const double t, const adstring& title);
    int createXMLelement(const adstring& name, const int t, const adstring& title);
@@ -89,13 +93,23 @@ public:
    int createXMLelement(const adstring& name, const param_init_bounded_number_vector& t, const adstring& title);
    int createXMLelement(const adstring& name, const param_init_bounded_number_matrix& t, const adstring& title, const int M);
    int createXMLelement(const adstring& name, const imatrix& t, const adstring& title);
-   int createXMLelement(const adstring& name, const data_int& t, const adstring& title);
-   int createXMLelement(const adstring& name, const data_number& t, const adstring& title);
-   int createXMLelement(const adstring& name, const data_vector& t, const adstring& title);
-   int createXMLelement(const adstring& name, const data_matrix& t, const adstring& title);
+   //int createXMLelement(const adstring& name, const data_int& t, const adstring& title);
+   //int createXMLelement(const adstring& name, const data_number& t, const adstring& title);
+   //int createXMLelement(const adstring& name, const data_vector& t, const adstring& title);
+   //int createXMLelement(const adstring& name, const data_matrix& t, const adstring& title);
+   /** @} */
 
    // -----------------------
-
+   /** @name XML Creation for ADMB types
+    *  @{
+    */
+   /** Creates xml element for ADMB types declared in 
+       DATA_SECTION and PARAMETER_SECTION.
+   \param t The variable for with the element is to be 
+            created; overloaded for many data types.
+   \param title adstring containing a "user-friendly" description of the variable.
+   \return 1 if successful; 0 otherwise.
+   */
    int createXMLelement(const data_int& t, const adstring& title);
    int createXMLelement(const data_matrix& t, const adstring& title);
 
@@ -105,13 +119,12 @@ public:
 
    int createXMLelement(const param_init_bounded_number& t, const adstring& title);
    int createXMLelement(const param_init_bounded_vector& t, const adstring& title);
-
    int createXMLelement(const objective_function_value& t);
+   /** @} */
 
    int createXMLcomment(const adstring& t);
-   ///@}
 
-   /** Stub. Intended to update xml elemsnt value for any ADMB types.
+   /** Stub. Intended to update xml element value for any ADMB types.
    ADMB needs to be modifited for this to work. One possibility is to 
    change virtual void save_value(BOR_CONST ofstream& ofs,int prec)=0;
    into virtual void save_value(ostream& ofs,int prec)=0;
@@ -145,14 +158,15 @@ public:
 
 protected:
 
-   /** @name Node creation
+   /** @name Node Creation
     *  @{
     */
-   /**  Create new xml node for different types.
+   /**  Create new xml node for different types. Generally used
+   to contsruct XMLelements in various createXMLelement overloads.
    Uses ostrstream class to process argument.
    \param t Overloaded for different argument types. 
    \param parent Pointer to the node to which the new node will be attached
-   \return Integer [0,1] indicating succes or not of node creation
+   \return 1 if successful; 0 otherwise.
    */
     xmlNodePtr createNameNode(const adstring& name, const char* category);
 

@@ -19,8 +19,8 @@
 export ADMB_HOME=/home/jsibert/admb/trunk/build/dist
 
 # establish the C++ compiler (on Mac OSX use clang++)
-CC=clang
-CXX=clang++
+CC=gcc
+CXX=g++
 # and linker
 LL = $(CC)
 LD = $(CXX)
@@ -54,7 +54,7 @@ CXXFLAGS = $(CC_OPT) -D__GNUDOS__ -Dlinux -DUSE_LAPLACE  -I. -I$(ADMB_HOME)/incl
 
 
 # this is the default target
-all: tpl2cpp pella-xml xpella dox
+all: tpl2cpp pella-xml xpella
 
 # link the object file into the executable 
 pella-xml: pella-xml.o ADMB_XMLDoc.o

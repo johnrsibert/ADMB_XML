@@ -98,6 +98,14 @@ PROCEDURE_SECTION
     write_mcmc();
 
 REPORT_SECTION
+
+  /*
+  for (int i=0;i< initial_params::num_initial_params;i++)
+  {
+     //(varsptr[i])->save_value();
+     xml.createXMLelement(*initial_params::varsptr[i],"varptr");
+  }
+  */
   summary.initialize();
   get_summary();
 

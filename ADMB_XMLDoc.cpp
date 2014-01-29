@@ -160,7 +160,7 @@ int ADMB_XMLDoc::createXMLelement(const data_int& _t, const adstring& title)
    xmlNodePtr nnode = xmlAddChild(RootNode,node);
    return ((nnode == NULL));
 }
-
+/*
 int ADMB_XMLDoc::createXMLelement(const adstring& name,const data_int& _t, const adstring& title)
 {
    ADUNCONST(data_int, t);
@@ -171,7 +171,7 @@ int ADMB_XMLDoc::createXMLelement(const adstring& name,const data_int& _t, const
    xmlNodePtr nnode = xmlAddChild(RootNode,node);
    return ((nnode == NULL));
 }
-
+*/
 int ADMB_XMLDoc::createXMLelement(const data_matrix& _t, const adstring& title)
 {
    ADUNCONST(data_matrix, t) 
@@ -205,6 +205,7 @@ int ADMB_XMLDoc::createXMLelement(const param_init_bounded_number& _t, const ads
 int ADMB_XMLDoc::createXMLelement(const adstring& name, const param_init_bounded_number_matrix& _t, const adstring& title, const int M)
 {
    ADUNCONST(param_init_bounded_number_matrix, t) 
+   //adstring name(t.get_name());
    xmlNodePtr node = createNameNode(name, ADMB_XMLDoc::paramS);
    createTitleNode(node,title);
    //const int j1 = t.colmin();
@@ -519,6 +520,8 @@ int ADMB_XMLDoc::createXMLelement(const objective_function_value& _t)
 int ADMB_XMLDoc::createXMLelement(const adstring& name, const param_init_bounded_number_vector& _t, const adstring& title)
 {
    ADUNCONST(param_init_bounded_number_vector, t) 
+   // adstring name(t.get_name());
+   // no member named 'get_name' in 'param_init_bounded_number_vector'
    const int i1 = t.indexmin();
    const int i2 = t.indexmax();
    dvector minb(i1,i2);
