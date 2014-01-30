@@ -172,6 +172,20 @@ int ADMB_XMLDoc::createXMLelement(const adstring& name,const data_int& _t, const
    return ((nnode == NULL));
 }
 */
+int ADMB_XMLDoc::createXMLelement(const data_vector& _t, const adstring& title)
+{
+   ADUNCONST(data_vector, t) 
+   adstring name(t.get_name());
+   xmlNodePtr node = createNameNode(name, ADMB_XMLDoc::dataS);
+   createTitleNode(node,title);
+   const int i1 = t.indexmin();
+   const int i2 = t.indexmax();
+   createIndexNode(node, i1,i2);
+   createValueNode(node,t);
+   xmlNodePtr nnode = xmlAddChild(RootNode,node);
+   return ((nnode == NULL));
+} 
+
 int ADMB_XMLDoc::createXMLelement(const data_matrix& _t, const adstring& title)
 {
    ADUNCONST(data_matrix, t) 

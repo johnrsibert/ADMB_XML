@@ -1640,6 +1640,7 @@ public:
 private:
   void allocate(int imin,int imax,const char * ="UNNAMED");
   void allocate(int imin, const ivector& imax, const char * ="UNNAMED");
+  void allocate(init_xml_doc&, const char * ="UNNAMED");
   friend class model_data;
 };
 
@@ -1653,6 +1654,7 @@ public:
   double * pd;
   void allocate(double * pd,int imin,int imax,const char * ="UNNAMED");
   void allocate(double *pd, int imin, const ivector& imax, const char * ="UNNAMED");
+
   virtual ~dll_data_vector();
   dll_data_vector& operator = (const dvector& x);
   dll_data_vector& operator = (const double& x);

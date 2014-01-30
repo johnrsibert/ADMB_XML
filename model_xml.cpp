@@ -23,6 +23,12 @@ void data_int::allocate(init_xml_doc& xml, char const* s)
    model_name_tag::allocate(s);
 }
 
+void data_vector::allocate(init_xml_doc& xml, char const* s)
+{
+   *this = xml.getDvector(s);
+   model_name_tag::allocate(s);
+}
+
 void data_matrix::allocate(init_xml_doc& xml, char const* s)
 {
    *this = xml.getDmatrix(s);

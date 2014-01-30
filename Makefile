@@ -63,6 +63,8 @@ pella-xml: pella-xml.o ADMB_XMLDoc.o
 xpella: xpella.o ADMB_XMLDoc.o admodel.o model_xml.o
 	$(LD) $(LDFLAGS) -o  $@ $^ $(LDLIBS)
 
+simple: simple.o ADMB_XMLDoc.o admodel.o model_xml.o
+	$(LD) $(LDFLAGS) -o  $@ $^ $(LDLIBS)
 
 # Advanced Auto Dependency Generation
 # Check compiler options for generating phony targets (-MP -MD for clang compiler on OSX)
@@ -106,6 +108,7 @@ clean:
 	$(RM) tpl2cpp tpl2cpp.c lex.yy.c
 	$(RM) pella-xml pella-xml.htp pella-xml.cpp
 	$(RM) xpella xpella.htp xpella.cpp
+	$(RM) simple simple.htp simple.cpp
 	$(RM) *.o
 	$(RM) *.bar *.cor *.eva *.log *.par *.rep *.std *.hes *.cov *.dep
 	rm -rf dox

@@ -111,6 +111,7 @@ public:
    \return 1 if successful; 0 otherwise.
    */
    int createXMLelement(const data_int& t, const adstring& title);
+   int createXMLelement(const data_vector& t, const adstring& title);
    int createXMLelement(const data_matrix& t, const adstring& title);
 
    int createXMLelement(const named_dvariable& t, const adstring& title);
