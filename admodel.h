@@ -1147,6 +1147,8 @@ class param_init_number: public named_dvariable , public initial_params
 protected:
   void allocate(int phase_start=1,const char *s="UNNAMED");
   void allocate(const char *s="UNNAMED");
+  void allocate(init_xml_doc&, const char *s="UNNAMED");
+
   friend class model_parameters;
   friend class param_init_number_vector;
   param_init_number();

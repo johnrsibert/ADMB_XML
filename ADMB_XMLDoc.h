@@ -19,18 +19,16 @@ using namespace std;
 
 // forward declarations to avoid circular includes caused by
 // #include <admodel.h>
-class data_number;
 class data_vector;
 class data_matrix;
-class param_init_bounded_number;
-class param_init_bounded_vector;
-class initial_params;
-class objective_function_value;
 class named_dvariable;
 class named_dvar_vector;
 class named_dvar_matrix;
+class param_init_bounded_number;
+class param_init_bounded_vector;
+class objective_function_value;
+class initial_params;
 
-//LIBXML_TEST_VERSION;
 /** Class for handling ADMB data types in XML. 
 */
 class ADMB_XMLDoc

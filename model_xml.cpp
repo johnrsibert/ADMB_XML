@@ -17,6 +17,13 @@ void init_xml_doc::allocate(const char * s)
    int ret = read(xml_name);
 }
 
+void param_init_number::allocate(init_xml_doc& xml, char const* s)
+{
+   allocate(1,s);               // call the default allocator
+   *this = xml.getDouble(s);    // set the initial value
+   model_name_tag::allocate(s); // set the name
+}
+
 void data_int::allocate(init_xml_doc& xml, char const* s)
 {
    val = xml.getInt(s);
