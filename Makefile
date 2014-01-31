@@ -16,7 +16,7 @@
 #DEPS = $(SRCS:.cpp=.depends)
 
 # Export the path to your ADMB dist directory
-export ADMB_HOME=/home/jsibert/admb/trunk/build/dist
+# export ADMB_HOME=/home/jsibert/admb/trunk/build/dist
 
 # establish the C++ compiler (on Mac OSX use clang++)
 CC=gcc
@@ -74,7 +74,7 @@ simple: simple.o ADMB_XMLDoc.o admodel.o model_xml.o
 -include $(OBJS:%.o=%.d)
 
 # Build the cpp file from the tpl
-%.cpp : %.tpl
+%.cpp : %.tpl tpl2cpp
 	./tpl2cpp $*
 
 #From ~/admb/trunk/src$ vi Makefile 
