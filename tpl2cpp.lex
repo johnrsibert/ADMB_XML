@@ -430,7 +430,7 @@ DATA_SECTION  {
       char * FILE_ROOT = strdup(infile_root);
 #  endif
     //if(!data_defined)
-	BEGIN DEFINE_DATA;
+  BEGIN DEFINE_DATA;
     data_defined=1;
     in_define_data=1;
     filename_size = strlen(FILE_ROOT);
@@ -586,7 +586,7 @@ DATA_SECTION  {
 
 <DEFINE_DATA>init_number {
     likelihood_found=1;
-    BEGIN IN_NUMBER_DEF;
+    BEGIN INIT_BOUNDED_NUMBER_DEF;
     fprintf(fdat,"%s","  data_number ");
                      }
 
@@ -596,6 +596,7 @@ DATA_SECTION  {
                      }
 
 <DEFINE_DATA>init_adstring {
+
     BEGIN IN_NUMBER_DEF;
     fprintf(fdat,"%s","  init_adstring ");
                      }
@@ -921,7 +922,7 @@ DATA_SECTION  {
                      }
 
 <DEFINE_PARAMETERS>init_int {
-	  prior_found=1;
+    prior_found=1;
     BEGIN IN_NUMBER_DEF;
     fprintf(fdat,"%s","  param_init_int ");
                      }
@@ -1176,30 +1177,30 @@ DATA_SECTION  {
                      }
 
 <DEFINE_PARAMETERS>init_number {
-	  prior_found=1;
+    prior_found=1;
     BEGIN IN_NUMBER_DEF;
     fprintf(fdat,"%s","  param_init_number ");
                      }
 
 <DEFINE_PARAMETERS>init_number_vector {
-	prior_found=1;
+  prior_found=1;
     BEGIN IN_VECTOR_DEF;
     fprintf(fdat,"%s","  param_init_number_vector ");
                      }
 
 <DEFINE_PARAMETERS>init_bounded_number {
-	prior_found=1;
+  prior_found=1;
     BEGIN INIT_BOUNDED_NUMBER_DEF;
     fprintf(fdat,"%s","  param_init_bounded_number ");
                      }
 
 <DEFINE_PARAMETERS>init_bounded_number_vector {
-	prior_found=1;
+  prior_found=1;
     BEGIN INIT_BOUNDED_VECTOR_DEF;
     fprintf(fdat,"%s","  param_init_bounded_number_vector ");
                      }
 <DEFINE_PARAMETERS>init_bounded_number_matrix {
-	  prior_found=1;
+    prior_found=1;
     BEGIN INIT_BOUNDED_MATRIX_DEF;
     fprintf(fdat,"%s","  param_init_bounded_number_matrix ");
                      }
@@ -1221,7 +1222,7 @@ DATA_SECTION  {
                      }
 
 <DEFINE_PARAMETERS>init_vector {
-	  prior_found=1;
+    prior_found=1;
     BEGIN IN_VECTOR_DEF;
     fprintf(fdat,"%s","  param_init_vector ");
                      }
@@ -1233,25 +1234,25 @@ DATA_SECTION  {
                      }
 
 <DEFINE_PARAMETERS>init_vector_vector {
-	  prior_found=1;
+    prior_found=1;
     BEGIN IN_MATRIX_DEF;
     fprintf(fdat,"%s","  param_init_vector_vector ");
                      }
 
 <DEFINE_PARAMETERS>init_bounded_dev_vector {
-	  prior_found=1;
+    prior_found=1;
     BEGIN INIT_BOUNDED_VECTOR_DEF;
     fprintf(fdat,"%s","  param_init_bounded_dev_vector ");
                      }
 
 <DEFINE_PARAMETERS>init_bounded_vector {
-	prior_found=1;
+  prior_found=1;
     BEGIN INIT_BOUNDED_VECTOR_DEF;
     fprintf(fdat,"%s","  param_init_bounded_vector ");
                      }
 
 <DEFINE_PARAMETERS>init_bounded_vector_vector {
-	  prior_found=1;
+    prior_found=1;
     BEGIN INIT_BOUNDED_MATRIX_DEF;
     fprintf(fdat,"%s","  param_init_bounded_vector_vector ");
                      }
@@ -1281,25 +1282,25 @@ DATA_SECTION  {
                      }
 
 <DEFINE_PARAMETERS>init_matrix {
-	prior_found=1;
+  prior_found=1;
     BEGIN IN_MATRIX_DEF;
     fprintf(fdat,"%s","  param_init_matrix ");
                      }
 
 <DEFINE_PARAMETERS>init_matrix_vector {
-	prior_found=1;
+  prior_found=1;
     BEGIN IN_THREE_ARRAY_DEF;
     fprintf(fdat,"%s","  param_init_matrix_vector ");
                      }
 
 <DEFINE_PARAMETERS>init_bounded_matrix {
-	prior_found=1;
+  prior_found=1;
     BEGIN INIT_BOUNDED_MATRIX_DEF;
     fprintf(fdat,"%s","  param_init_bounded_matrix ");
                      }
 
 <DEFINE_PARAMETERS>init_bounded_matrix_vector {
-	prior_found=1;
+  prior_found=1;
     BEGIN INIT_BOUNDED_THREE_ARRAY_DEF;
     fprintf(fdat,"%s","  param_init_bounded_matrix_vector ");
                      }
@@ -1321,25 +1322,25 @@ DATA_SECTION  {
                      }
 
 <DEFINE_PARAMETERS>init_3darray {
-	prior_found=1;
+  prior_found=1;
     BEGIN IN_THREE_ARRAY_DEF;
     fprintf(fdat,"%s","  param_init_d3array ");
                      }
 
 <DEFINE_PARAMETERS>init_4darray {
-	prior_found=1;
+  prior_found=1;
     BEGIN IN_FOUR_ARRAY_DEF;
     fprintf(fdat,"%s","  param_init_4array ");
                      }
 
 <DEFINE_PARAMETERS>init_5darray {
-	prior_found=1;
+  prior_found=1;
     BEGIN IN_FIVE_ARRAY_DEF;
     fprintf(fdat,"%s","  param_init_5array ");
                      }
 
 <DEFINE_PARAMETERS>init_bounded_3darray {
-	prior_found=1;
+  prior_found=1;
     BEGIN INIT_BOUNDED_THREE_ARRAY_DEF;
     fprintf(fdat,"%s","  param_init_bounded_d3array ");
                      }
@@ -1793,7 +1794,8 @@ DATA_SECTION  {
 <IN_VECTOR_DEF>{name}\({num_exp},{num_exp}\) |
 <IN_VECTOR_DEF>{name}\({num_exp},{name}\) |
 <IN_VECTOR_DEF>{name}\({name},{num_exp}\) |
-<IN_VECTOR_DEF>{name}\({name},{name}\) {
+<IN_VECTOR_DEF>{name}\({name},{name}\) |
+<IN_VECTOR_DEF>({name}\({name}\)) {
 
     before_part(tmp_string,yytext,'(');  // get x in x(1,4)
     fprintf(fdat,"%s",tmp_string);
@@ -2153,7 +2155,7 @@ DATA_SECTION  {
 
 
 <INIT_BOUNDED_VECTOR_DEF>{name}\({num_exp},{num_exp},{float_num_exp},{float_num_exp},{num_exp}\) |
-<INIT_BOUNDED_VECTOR_DEV>{name}\({name}\) {
+<INIT_BOUNDED_VECTOR_DEF>{name}\({name}\) {
 
     before_part(tmp_string,yytext,'(');  // get x in x(1,4)
     fprintf(fdat,"%s",tmp_string);
@@ -2179,7 +2181,8 @@ DATA_SECTION  {
                             }
 
 <IN_MATRIX_DEF>{name}\({num_exp},{num_exp},{num_exp},{num_exp}\) |
-<IN_MATRIX_DEF>{name}\({num_exp},{num_exp},{num_exp},{num_exp},{num_exp}\) {
+<IN_MATRIX_DEF>{name}\({num_exp},{num_exp},{num_exp},{num_exp},{num_exp}\) |
+<IN_MATRIX_DEF>({name}\({name}\)) {
 
     before_part(tmp_string,yytext,'(');  // get x in x(1,4)
     fprintf(fdat,"%s",tmp_string);
@@ -3001,7 +3004,7 @@ DATA_SECTION  {
       }
       BEGIN DEFINE_PARAMETERS;
     }
-			    }
+          }
 
 
 <INIT_BOUNDED_MATRIX_DEF>{name}\({num_exp},{num_exp},{num_exp},{num_exp},{float_num_exp},{float_num_exp},{num_exp}\) {
@@ -3052,7 +3055,7 @@ DATA_SECTION  {
       }
       BEGIN DEFINE_PARAMETERS;
     }
-			    }
+          }
 
 
 <INIT_BOUNDED_THREE_ARRAY_DEF>{name}\({num_exp},{num_exp},{num_exp},{num_exp},{num_exp},{num_exp},{float_num_exp},{float_num_exp},{num_exp}\) {
@@ -3389,20 +3392,20 @@ DATA_SECTION  {
 
 ; {
   if(priors_defined && (!priors_done)){
-   	fprintf(fall,"%s",yytext);
-	BEGIN DEFINE_PRIORS;
+     fprintf(fall,"%s",yytext);
+  BEGIN DEFINE_PRIORS;
   }
   if(likelihood_defined && (!likelihood_done)){
-   	if(priors_defined) priors_done=1; //turn off prior
-   	fprintf(fall,"%s",yytext);
-	BEGIN DEFINE_LIKELIHOOD;
+     if(priors_defined) priors_done=1; //turn off prior
+     fprintf(fall,"%s",yytext);
+  BEGIN DEFINE_LIKELIHOOD;
   }
   /*
   if(procedure_defined && (!procedure_done)){
-   	if(priors_defined) priors_done=1;
-   	if(likelihood_defined) likelihood_done=1;
-   	fprintf(fall,"%s",yytext);
-	BEGIN DEFINE_PROCEDURE;
+     if(priors_defined) priors_done=1;
+     if(likelihood_defined) likelihood_done=1;
+     fprintf(fall,"%s",yytext);
+  BEGIN DEFINE_PROCEDURE;
   }
   */
   //;             /* ignore semi colons */ ;
@@ -3411,19 +3414,19 @@ DATA_SECTION  {
 
 [ \t]+ {
   if(priors_defined && (!priors_done)){
-   	fprintf(fall,"%s",yytext);
-	BEGIN DEFINE_PRIORS;
+     fprintf(fall,"%s",yytext);
+  BEGIN DEFINE_PRIORS;
   }
   if(likelihood_defined && (!likelihood_done)){
-   	priors_done=1;
-   	fprintf(fall,"%s",yytext);
-	BEGIN DEFINE_LIKELIHOOD;
+     priors_done=1;
+     fprintf(fall,"%s",yytext);
+  BEGIN DEFINE_LIKELIHOOD;
   }
   /*
   if(procedure_defined && (!procedure_done)){
-   	priors_done=1;likelihood_done=1;
-   	fprintf(fall,"%s",yytext);
-	BEGIN DEFINE_PROCEDURE;
+     priors_done=1;likelihood_done=1;
+     fprintf(fall,"%s",yytext);
+  BEGIN DEFINE_PROCEDURE;
   }
   */
   //[ \t]+        /* ignore blanks */  ;
@@ -3432,19 +3435,19 @@ DATA_SECTION  {
 
 \n {
   if(priors_defined && (!priors_done)){
-   	fprintf(fall,"%s",yytext);
-	BEGIN DEFINE_PRIORS;
+     fprintf(fall,"%s",yytext);
+  BEGIN DEFINE_PRIORS;
   }
   if(likelihood_defined && (!likelihood_done)){
-   	priors_done=1;
-   	fprintf(fall,"%s",yytext);
-	BEGIN DEFINE_LIKELIHOOD;
+     priors_done=1;
+     fprintf(fall,"%s",yytext);
+  BEGIN DEFINE_LIKELIHOOD;
   }
   /*
   if(procedure_defined && (!procedure_done)){
-   	priors_done=1;likelihood_done=1;
-   	fprintf(fall,"%s",yytext);
-	BEGIN DEFINE_PROCEDURE;
+     priors_done=1;likelihood_done=1;
+     fprintf(fall,"%s",yytext);
+  BEGIN DEFINE_PROCEDURE;
   }
   */
   nline++;
@@ -3454,26 +3457,26 @@ DATA_SECTION  {
 
 . {
   if(priors_defined && (!priors_done)){
-   	fprintf(fall,"%s",yytext);
-	BEGIN DEFINE_PRIORS;
+     fprintf(fall,"%s",yytext);
+  BEGIN DEFINE_PRIORS;
   }
   else if(likelihood_defined && (!likelihood_done)){
-   	priors_done=1;
-   	fprintf(fall,"%s",yytext);
-	BEGIN DEFINE_LIKELIHOOD;
+     priors_done=1;
+     fprintf(fall,"%s",yytext);
+  BEGIN DEFINE_LIKELIHOOD;
   }
   /*
   else if(procedure_defined && (!procedure_done)){
-   	priors_done=1;likelihood_done=1;
-   	fprintf(fall,"%s",yytext);
-	BEGIN DEFINE_PROCEDURE;
+     priors_done=1;likelihood_done=1;
+     fprintf(fall,"%s",yytext);
+  BEGIN DEFINE_PROCEDURE;
   }
   */
   else
   {
-	fprintf(stderr,"%s %d %s","Error in line",nline,"while reading\n");
-	fprintf(stderr,"%s\n",yytext);
-	exit(1);
+  fprintf(stderr,"%s %d %s","Error in line",nline,"while reading\n");
+  fprintf(stderr,"%s\n",yytext);
+  exit(1);
   }
   }
 
@@ -3488,7 +3491,7 @@ PARAMETER_SECTION {
       exit(1);
     }
     //if(!params_defined)
-	BEGIN DEFINE_PARAMETERS;
+  BEGIN DEFINE_PARAMETERS;
     in_define_data=0;
     in_define_parameters=1;
     params_defined=1;
@@ -3565,7 +3568,7 @@ PROCEDURE_SECTION {
     {
       fprintf(stderr,"%s","Error -- PROCEDURE_SECTION must be defined before"
         " LIKELIHOOD_SECTION \n");
-	    exit(1);
+      exit(1);
     }
     */
     if (!objective_function_defined)
@@ -3638,7 +3641,7 @@ PRIOR_SECTION {
   {
     fprintf(stderr,"%s","Error -- PRIORS_SECTION must be defined before"
       " LIKELIHOOD_SECTION \n");
-	  exit(1);
+    exit(1);
   }
 
   if (procedure_defined)
@@ -4203,7 +4206,7 @@ TOP_OF_MAIN_SECTION {
 
      fprintf(ftopmain,"    mp.computations(argc,argv);\n");
 
-    fprintf(htop,"#include \"admodel.h\"\n");
+    fprintf(htop,"#include <admodel.h>\n");
     fprintf(htop,"#include <contrib.h>\n\n");
 
     if (bound_flag)
@@ -4468,6 +4471,7 @@ char * after_part(char * d, char * s, char c)
   int ipos=0;
   int i=0;
   int iflag=0;
+  size_t index = strlen(s);
   if (strlen(s) > MAX_TMP_STRING)
   {
     fprintf(stderr,"%s","string passed to before_part is too long\n");
@@ -4489,7 +4493,7 @@ char * after_part(char * d, char * s, char c)
       d[i-ipos]=s[i];
     }
     d[strlen(s)-ipos]='\0';
-    int index = (int)(strlen(s) - ipos - 1);
+    index = index - ipos - 1;
     if (index >= 0)
     {
       if (d[index] == 13)   // crtl M
@@ -4504,6 +4508,7 @@ char * strict_after_part(char * d, char * s, char c)
   int ipos=0;
   int i=0;
   int iflag=0;
+  size_t index = strlen(s);
   if (strlen(s) > MAX_TMP_STRING)
   {
     fprintf(stderr,"%s","string passed to before_part is too long\n");
@@ -4525,7 +4530,7 @@ char * strict_after_part(char * d, char * s, char c)
       d[i-ipos-1]=s[i];
     }
     d[strlen(s)-ipos-1]='\0';
-    int index = (int)(strlen(s) - ipos - 1);
+    index = index - ipos - 1;
     if (index >= 0)
     {
       if (d[index] == 13)   // crtl M
@@ -4542,6 +4547,7 @@ char * after_partb(char * d, char * s, char c)
   int ipos=0;
   int i=0;
   int iflag=0;
+  size_t index = strlen(s);
   if (strlen(s) > MAX_TMP_STRING)
   {
     fprintf(stderr,"%s","string passed to before_part is too long\n");
@@ -4563,7 +4569,7 @@ char * after_partb(char * d, char * s, char c)
       d[i-ipos]=s[i];
     }
     d[strlen(s)-ipos]='\0';
-    int index = (int)(strlen(s) - ipos - 1);
+    index = index - ipos - 1;
     if (index >= 0)
     {
       if (d[index] == 13)   // crtl M
@@ -4711,10 +4717,10 @@ void marker(void){;}
   */
   void add_prior_to_objective(void)
   {
-	  prior_done_once=1;priors_done=1;
-	  procedure_done=1;
-	  fprintf(fdat,"  virtual void priorsfunction(void);\n");  //add to .htp file
-	  //fprintf(fall,"%s","  prior_function_value=0.0;\n");
+    prior_done_once=1;priors_done=1;
+    procedure_done=1;
+    fprintf(fdat,"  virtual void priorsfunction(void);\n");  //add to .htp file
+    //fprintf(fall,"%s","  prior_function_value=0.0;\n");
       fprintf(fall,"%s","  priorsfunction();\n"); //append at the end of procedure section/userfunction()
       //fprintf(fall,"%s%s%s","  ",objective_function_name_string,"+=prior_function_value;\n");
   }
@@ -4725,10 +4731,10 @@ void marker(void){;}
   */
   void add_likelihood_to_objective(void)
   {
-	  likelihood_done_once=1;likelihood_done=1;
-	  procedure_done=1;
-	  fprintf(fdat,"  virtual void likelihoodfunction(void);\n");  //add to .htp file
-	  //fprintf(fall,"%s","  likelihood_function_value=0.0;\n");
+    likelihood_done_once=1;likelihood_done=1;
+    procedure_done=1;
+    fprintf(fdat,"  virtual void likelihoodfunction(void);\n");  //add to .htp file
+    //fprintf(fall,"%s","  likelihood_function_value=0.0;\n");
       fprintf(fall,"%s","  likelihoodfunction();\n");
       //fprintf(fall,"%s%s%s","  ",objective_function_name_string,"+=likelihood_function_value;\n");
   }
@@ -4740,13 +4746,13 @@ void marker(void){;}
   */
   void setup_for_prior_likelihood(void)
   {
-	if(priors_defined) priors_done=1;
-	if(likelihood_defined) likelihood_done=1;
-	if((procedure_defined)&&(!priors_defined)&&(!likelihood_defined)) procedure_done=1;
-	if((procedure_defined)&&(priors_defined)&&(!prior_done_once)) add_prior_to_objective();
-	if((procedure_defined)&&(likelihood_defined)&&(!likelihood_done_once)) add_likelihood_to_objective();
-	//if((priors_defined)&&(!prior_done_once)) add_prior_to_objective();
-	//if((likelihood_defined)&&(!likelihood_done_once)) add_likelihood_to_objective();
+  if(priors_defined) priors_done=1;
+  if(likelihood_defined) likelihood_done=1;
+  if((procedure_defined)&&(!priors_defined)&&(!likelihood_defined)) procedure_done=1;
+  if((procedure_defined)&&(priors_defined)&&(!prior_done_once)) add_prior_to_objective();
+  if((procedure_defined)&&(likelihood_defined)&&(!likelihood_done_once)) add_likelihood_to_objective();
+  //if((priors_defined)&&(!prior_done_once)) add_prior_to_objective();
+  //if((likelihood_defined)&&(!likelihood_done_once)) add_likelihood_to_objective();
   }
 
 
@@ -4756,7 +4762,7 @@ void marker(void){;}
  */
  void trim(char * a)
  {
-	size_t walker = strlen ( a );
+  size_t walker = strlen ( a );
     //printf ( "Before: |%s|\n\n", a );
 
     /* Trim trailing spaces */
