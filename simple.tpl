@@ -1,3 +1,5 @@
+GLOBALS_SECTION
+  #include "ADMB_XMLDoc.h"
 DATA_SECTION
   init_xml_doc ixml
   init_int nobs(ixml)

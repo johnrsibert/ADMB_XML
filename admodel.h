@@ -73,7 +73,8 @@
 #include <cifstrem.h>
 
 #include <adstring.hpp>
-#include "ADMB_XMLDoc.h"
+//#include "ADMB_XMLDoc.h"
+class init_xml_doc;
 
 #if defined(UNIXKLUDGE)
 #include <unistd.h>
@@ -258,7 +259,7 @@ protected:
   named_dvariable& operator = (CGNU_DOUBLE m);
   friend class model_parameters;
 };
-
+/*
 class init_xml_doc : public ADMB_XMLDoc, public model_name_tag
 {
 public:
@@ -266,7 +267,7 @@ public:
   void allocate(const char * s);
   friend class model_parameters;
 };
-
+*/
 
 
 /**

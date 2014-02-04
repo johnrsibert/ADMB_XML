@@ -18,7 +18,8 @@ Definition of class ADMB_XMLDoc. Based on the XMLDocument2 class by Johnoel Anch
 using namespace std;
 
 // forward declarations to avoid circular includes caused by
-// #include <admodel.h>
+#include <admodel.h>
+/*
 class data_vector;
 class data_matrix;
 class named_dvariable;
@@ -28,7 +29,8 @@ class param_init_bounded_number;
 class param_init_bounded_vector;
 class objective_function_value;
 class initial_params;
-
+class model_name_tag;
+*/
 /** Class for handling ADMB data types in XML. 
 */
 class ADMB_XMLDoc
@@ -205,6 +207,13 @@ protected:
 
 }; // class ADMB_XMLDoc
 
+class init_xml_doc : public ADMB_XMLDoc, public model_name_tag
+{
+public:
+  init_xml_doc(void) : ADMB_XMLDoc(), model_name_tag() {;}
+  void allocate(const char * s);
+  friend class model_parameters;
+};
 
 
 #endif //#ifndef __ADMB_XMLDoc__

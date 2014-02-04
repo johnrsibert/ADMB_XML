@@ -19,9 +19,8 @@
 //======================================================================================================================
 
 GLOBALS_SECTION
-  #include "admodel.h"
+  #include "ADMB_XMLDoc.h"
   #include <string>
-  #include "trace.h"
   using std::string;
   const double pi = 3.141592654;
   int mcmc_iteration = 0;
