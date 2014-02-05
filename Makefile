@@ -62,10 +62,10 @@ all: tpl2cpp pella-xml xpella simple
 pella-xml: pella-xml.o ADMB_XMLDoc.o
 	$(LD) $(LDFLAGS) -o  $@ $^ $(LDLIBS)
 
-xpella: xpella.o ADMB_XMLDoc.o admodel.o model_xml.o
+xpella: xpella.o ADMB_XMLDoc.o model_xml.o
 	$(LD) $(LDFLAGS) -o  $@ $^ $(LDLIBS)
 
-simple: simple.o ADMB_XMLDoc.o admodel.o model_xml.o
+simple: simple.o ADMB_XMLDoc.o model_xml.o
 	$(LD) $(LDFLAGS) -o  $@ $^ $(LDLIBS)
 
 # Advanced Auto Dependency Generation
