@@ -3,6 +3,12 @@ ADMB_XML
 
 xml interface for I/O of ADMB types
 
+Notice
+------
+
+This code has been supplanted by the code in the main 
+[ADMB git repository](https://github.com/admb-project/admb/tree/master/tests/xml)
+
 Purpose
 -------
 
